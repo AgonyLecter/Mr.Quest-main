@@ -8,32 +8,38 @@
     body {
       background-color: #282828;
       color: #ffd700;
-      font-family: 'Courier New', monospace; /* Stile di font che ricorda i gialli alla Hitchcock */
+      font-family: 'Courier New', monospace;
       text-align: center;
-      padding: 20px;
+      padding: 2rem;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
     .container {
-      max-width: 600px;
-      margin: auto;
-      padding: 20px;
-      transition: transform 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     h1 {
-      margin: 0 auto;
-      font-size: 36px;
+      font-size: 2.25rem;
       color: #ffd700;
     }
     #story {
-      opacity: 0;
-      transform: translateY(-20px);
-      animation: fadeInUp 1s forwards;
+      opacity: 1;
+      transition: opacity 0.5s ease-in-out;
       margin: 30px auto;
       padding: 20px;
       border: 2px solid #ffd700;
       border-radius: 10px;
       background-color: rgb(0, 0, 0);
       box-shadow: 0 2px 10px rgb(0, 0, 0);
-      text-align: left;
+    }
+    .story-intro {
+      font-size: 1.5rem;
+      font-weight: bold;
     }
     .story-image {
       max-width: 80%;
@@ -45,21 +51,27 @@
     }
     #story-select {
       display: block;
+      max-width: 90%;
       margin: 20px auto;
       padding: 10px 20px;
-      border: 2px solid #ffd700;
+      border: none;
       border-radius: 5px;
-      background-color: rgb(0, 0, 0);
-      color: #ffd700;
-      font-size: 16px;
+      background-color: #ffd700;
+      color: #282828;
+      font-size: 1rem;
       cursor: pointer;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    #story-select:focus, #story-select:hover {
+      background-color: #ffeb3b;
+      color: #000;
     }
     #choice-confirmation {
-      color: #ffd700;
+      color: #ffeb3b;
       font-weight: bold;
       margin-top: 10px;
       opacity: 0;
-      animation: fadeInConfirmation 1s ease-in-out forwards;
+      transition: opacity 0.5s ease-in-out;
     }
     .social-icons {
       display: flex;
@@ -77,18 +89,9 @@
     .social-icon:hover, .social-icon:focus {
       fill: #ffeb3b;
     }
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    @keyframes fadeInConfirmation {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.75rem;
       }
     }
   </style>
@@ -97,42 +100,50 @@
   <div class="container">
     <h1>📚 Mr. Quest - Interactive Mystery 📚</h1>
     <div id="story">
-      <p style="font-size: 1.5em; font-weight: bold;">🔍 Benvenuto nel misterioso mondo di Mr. Quest 🔍</p>
+      <p class="story-intro">🔍 Benvenuto nel misterioso mondo di Mr. Quest 🔍</p>
       <p>Sei pronto a risolvere enigmi oscuri e scoprire la verità nascosta?</p>
       <img src="logo.png" alt="Mr. Quest Logo" class="story-image">
       <select id="story-select" onchange="selectStory()">
         <option value="" disabled selected>Scegli una storia</option>
         <optgroup label="Leggende">
-          <option value="storie/3/indice.html">📖La Cantina sul 🌊Mare🌊📖</option>
-        </optgroup>
-        <optgroup label="Gialli">
-          <option value="storie/2/indice.html">📖Il Conflitto Invisibile📖</option>
-          <option value="storie/1/indice.html">📖Delitto in 🎥Diretta🎥📖</option>
+            <option value="storie/3/indice.html">📖La Cantina sul 🌊Mare🌊📖</option>
+          </optgroup>
+          <optgroup label="Gialli">
+            <option value="storie/2/indice.html">📖Il Conflitto Invisibile📖</option>
+            <option value="storie/1/indice.html">📖Delitto in 🎥Diretta🎥📖</option>
+          </optgroup>
           <optgroup label="Sfida Mr.Quest">
-          <option value="storie/4/indice.html">✊ Sasso, ✋Carta, ✌️Forbice</option>
-        </optgroup>
+            <option value="storie/4/indice.html">✊ Sasso, ✋Carta, ✌️Forbice</option>
+          </optgroup>
       </select>
       <div id="choice-confirmation"></div>
     </div>
     <div class="social-icons">
-      <a href="https://www.facebook.com/profile.php?id=61550552552359" aria-label="Facebook">
-        <svg class="social-icon" viewBox="0 0 24 24"><path d="M24 12c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.991 4.388 10.954 10.125 11.854v-8.385h-3.047v-3.469h3.047v-2.656c0-3.021 1.796-4.688 4.533-4.688 1.312 0 2.686 0.235 2.686 0.235v2.953h-1.513c-1.494 0-1.953 0.923-1.953 1.873v2.282h3.328l-0.532 3.469h-2.796v8.385c5.737-0.899 10.125-5.863 10.125-11.854z"/></a>
-      <a href="https://instagram.com/mr.questofficial?igshid=MzRlODBiNWFlZA==" aria-label="Instagram">
-        <svg class="social-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.07 1.645.07 4.849s-.012 3.584-.07 4.849c-.148 3.227-1.664 4.771-4.919 4.919-1.265.058-1.645.07-4.849.07s-3.584-.012-4.849-.07c-3.227-.148-4.771-1.664-4.919-4.919-.058-1.265-.07-1.645-.07-4.849s.012-3.584.07-4.849c.148-3.227 1.691-4.771 4.919-4.919 1.265-.058 1.645-.07 4.849-.07zm0-2.163c-3.31 0-3.729.015-5.035.073-4.142.183-7.362 3.403-7.545 7.545-.058 1.306-.073 1.725-.073 5.035s.015 3.729.073 5.035c.183 4.142 3.403 7.362 7.545 7.545 1.306.058 1.725.073 5.035.073s3.729-.015 5.035-.073c4.142-.183 7.362-3.403 7.545-7.545.058-1.306.073-1.725.073-5.035s-.015-3.729-.073-5.035c-.183-4.142-3.403-7.362-7.545-7.545-1.306-.058-1.725-.073-5.035-.073z"/><path d="M12 5.838c-3.204 0-5.794 2.589-5.794 5.794s2.589 5.794 5.794 5.794 5.794-2.589 5.794-5.794-2.589-5.794-5.794-5.794zm0 9.588c-2.088 0-3.794-1.705-3.794-3.794s1.705-3.794 3.794-3.794 3.794 1.705 3.794 3.794-1.705 3.794-3.794 3.794z"/><circle cx="18.406" cy="5.594" r="1.44"/></a>
+      <a href="https://www.facebook.com" target="_blank" aria-label="Facebook">
+        <svg class="social-icon" viewBox="0 0 24 24">
+            <svg class="social-icon" viewBox="0 0 24 24"><path d="M24 12c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.991 4.388 10.954 10.125 11.854v-8.385h-3.047v-3.469h3.047v-2.656c0-3.021 1.796-4.688 4.533-4.688 1.312 0 2.686 0.235 2.686 0.235v2.953h-1.513c-1.494 0-1.953 0.923-1.953 1.873v2.282h3.328l-0.532 3.469h-2.796v8.385c5.737-0.899 10.125-5.863 10.125-11.854z"/></a>
+            </svg>
+      </a>
+      <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
+        <svg class="social-icon" viewBox="0 0 24 24">
+            <svg class="social-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.07 1.645.07 4.849s-.012 3.584-.07 4.849c-.148 3.227-1.664 4.771-4.919 4.919-1.265.058-1.645.07-4.849.07s-3.584-.012-4.849-.07c-3.227-.148-4.771-1.664-4.919-4.919-.058-1.265-.07-1.645-.07-4.849s.012-3.584.07-4.849c.148-3.227 1.691-4.771 4.919-4.919 1.265-.058 1.645-.07 4.849-.07zm0-2.163c-3.31 0-3.729.015-5.035.073-4.142.183-7.362 3.403-7.545 7.545-.058 1.306-.073 1.725-.073 5.035s.015 3.729.073 5.035c.183 4.142 3.403 7.362 7.545 7.545 1.306.058 1.725.073 5.035.073s3.729-.015 5.035-.073c4.142-.183 7.362-3.403 7.545-7.545.058-1.306.073-1.725.073-5.035s-.015-3.729-.073-5.035c-.183-4.142-3.403-7.362-7.545-7.545-1.306-.058-1.725-.073-5.035-.073z"/><path d="M12 5.838c-3.204 0-5.794 2.589-5.794 5.794s2.589 5.794 5.794 5.794 5.794-2.589 5.794-5.794-2.589-5.794-5.794-5.794zm0 9.588c-2.088 0-3.794-1.705-3.794-3.794s1.705-3.794 3.794-3.794 3.794 1.705 3.794 3.794-1.705 3.794-3.794 3.794z"/><circle cx="18.406" cy="5.594" r="1.44"/></a>
+            </svg>
+      </a>
+      <!-- Altri pulsanti dei social se necessario -->
     </div>
   </div>
   <script>
     function selectStory() {
       var selectElement = document.getElementById('story-select');
       var choiceConfirmation = document.getElementById('choice-confirmation');
+      choiceConfirmation.style.opacity = '0'; // Resetta l'opacità per l'animazione
       if (selectElement.value) {
         var selectedStory = selectElement.options[selectElement.selectedIndex].text;
-        choiceConfirmation.textContent = 'Hai scelto ' + selectedStory;
+        choiceConfirmation.textContent = 'Hai scelto ' + selectedStory + '. Preparati a iniziare!';
+        choiceConfirmation.style.opacity = '1'; // Rende visibile immediatamente la conferma
         setTimeout(function () {
           window.location.href = selectElement.value;
         }, 2000);
-      } else {
-        choiceConfirmation.textContent = '';
       }
     }
   </script>
