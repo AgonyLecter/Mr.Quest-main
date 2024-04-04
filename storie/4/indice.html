@@ -82,21 +82,26 @@
                 width: auto;
                 align-self: center;
             }
-            @media (max-width: 600px) {
-                .choices {
-                    grid-template-columns: 1fr;
-                    gap: 20px;
-                }
-                .choice-card {
-                    width: auto;
-                }
-                #avatar {
-                    max-width: 100px;
-                }
-                #result, #score {
-                    font-size: 16px;
-                }
-            }
+@media (max-width: 600px) {
+    .choices {
+        grid-template-columns: 1fr; /* Disponi le carte in una singola colonna */
+        gap: 20px; /* Aumenta lo spazio tra le carte */
+    }
+    .choice-card {
+        padding: 10px; /* Aggiungi padding per mantenere lo spazio intorno alle immagini */
+    }
+    .choice-card img {
+        width: 80%; /* Riduci la larghezza dell'immagine per adattarla meglio */
+        height: auto; /* Mantiene le proporzioni dell'immagine */
+        margin: auto; /* Centra l'immagine nella carta */
+    }
+    #avatar {
+        max-width: 100px; /* Rendi l'avatar più piccolo sui dispositivi mobili */
+    }
+    #result, #score {
+        font-size: 16px; /* Riduci la dimensione del testo per migliorare la leggibilità */
+    }
+}
         </style>
     </head>
     
